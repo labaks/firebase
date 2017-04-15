@@ -6,7 +6,6 @@ import android.support.annotation.NonNull;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.text.format.DateFormat;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -97,12 +96,16 @@ public class MainActivity extends AppCompatActivity {
             @Override
             protected void populateView(View v, Item model, int position) {
                 TextView name;
-                RatingBar ratingBar;
+                RatingBar userRatingBar;
+                TextView totalRate;
                 name = (TextView) v.findViewById(R.id.tvItemName);
-                ratingBar = (RatingBar) v.findViewById(R.id.rbItemRate);
+                userRatingBar = (RatingBar) v.findViewById(R.id.rbItemRate);
+                totalRate = (TextView) v.findViewById(R.id.tvTotalRate);
+
 
                 name.setText(model.getName());
-                ratingBar.setRating(model.getRate());
+                userRatingBar.setRating(model.getUserRate());
+
             }
         };
         listItem.setAdapter(itemAdapter);
@@ -143,15 +146,11 @@ public class MainActivity extends AppCompatActivity {
         }
         if (item.getItemId() == R.id.menu_switch_list) {
             if(!chat){
-                Log.i("CHAT", "CHAT TRUE");
                 displayChat();
-                item.setIcon(R.drawable.chat);
-                Log.i("CHAT", "CHAT FALSE");
-            } else {
-                Log.i("CHAT", "CHAT FALSE");
-                displayItems();
                 item.setIcon(R.drawable.star);
-                Log.i("CHAT", "CHAT TRUE");
+            } else {
+                displayItems();
+                item.setIcon(R.drawable.chat);
             }
         }
         return true;

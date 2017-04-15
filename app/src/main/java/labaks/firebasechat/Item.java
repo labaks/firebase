@@ -3,11 +3,13 @@ package labaks.firebasechat;
 public class Item {
 
     private String name;
-    private float rate;
+    private float totalRate;
+    private float userRate;
 
-    public Item(String name, float rate) {
+    public Item(String name, float totalRate, float userRate) {
         this.name = name;
-        this.rate = rate;
+        this.totalRate = totalRate;
+        this.userRate = userRate;
     }
 
     public Item() {
@@ -21,11 +23,19 @@ public class Item {
         this.name = name;
     }
 
-    public float getRate() {
-        return rate;
+    public float getTotalRate() {
+        return totalRate;
     }
 
-    public void setRate(float rate) {
-        this.rate = rate;
+    public void setTotalRate(float totalRate) {
+        this.totalRate = totalRate;
+    }
+
+    public float getUserRate() {
+        return userRate;
+    }
+
+    public void setUserRate(float userRate) {
+        this.userRate = userRate;
     }
 }

@@ -8,6 +8,6 @@
 
     <item
         android:id="@+id/menu_switch_list"
-        android:icon="@drawable/chat"
+        android:icon="@drawable/star"
         app:showAsAction="always"/>
 </menu>
