@@ -16,9 +16,9 @@
         android:id="@+id/tvTextTotalRate"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/rbItemRate"
         android:layout_alignParentTop="true"
-        android:layout_alignStart="@+id/rbItemRate"
+        android:layout_toLeftOf="@+id/tvTotalRate"
+        android:layout_toStartOf="@+id/tvTotalRate"
         android:text="Total Rate: " />
 
     <TextView
@@ -46,5 +46,5 @@
         android:layout_height="wrap_content"
         android:layout_alignParentEnd="true"
         android:layout_alignParentRight="true"
-        android:layout_below="@+id/tvTotalRate" />
+        android:layout_below="@+id/tvTextTotalRate" />
 </RelativeLayout>

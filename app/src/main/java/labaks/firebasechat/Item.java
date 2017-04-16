@@ -1,15 +1,17 @@
 package labaks.firebasechat;
 
+import java.util.Map;
+
 public class Item {
 
     private String name;
     private float totalRate;
-    private float userRate;
+    private Map<String, Float> usersRate;
 
-    public Item(String name, float totalRate, float userRate) {
+    public Item(String name, float totalRate, Map<String, Float> usersRate) {
         this.name = name;
         this.totalRate = totalRate;
-        this.userRate = userRate;
+        this.usersRate = usersRate;
     }
 
     public Item() {
@@ -31,11 +33,11 @@ public class Item {
         this.totalRate = totalRate;
     }
 
-    public float getUserRate() {
-        return userRate;
+    public Map<String, Float> getUsersRate() {
+        return usersRate;
     }
 
-    public void setUserRate(float userRate) {
-        this.userRate = userRate;
+    public void setUsersRate(Map<String, Float> usersRate) {
+        this.usersRate = usersRate;
     }
 }

@@ -104,8 +104,8 @@ public class MainActivity extends AppCompatActivity {
 
 
                 name.setText(model.getName());
-                userRatingBar.setRating(model.getUserRate());
-
+                userRatingBar.setRating(model.getUsersRate().get(FirebaseAuth.getInstance().getCurrentUser().getDisplayName()));
+                totalRate.setText(Float.toString(model.getTotalRate()));
             }
         };
         listItem.setAdapter(itemAdapter);
