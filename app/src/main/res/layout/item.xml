@@ -63,5 +63,5 @@
         android:layout_below="@+id/tvTextTotalRate"
         android:layout_toLeftOf="@+id/tvNumberOfRaters"
         android:layout_toStartOf="@+id/tvNumberOfRaters"
-        android:text="Number of raters:" />
+        android:text="Number of raters: " />
 </RelativeLayout>

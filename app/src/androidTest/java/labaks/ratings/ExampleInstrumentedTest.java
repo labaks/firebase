@@ -1,4 +1,4 @@
-package labaks.firebasechat;
+package labaks.ratings;
 
 import android.content.Context;
 import android.support.test.InstrumentationRegistry;

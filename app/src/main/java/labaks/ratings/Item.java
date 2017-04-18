@@ -1,4 +1,4 @@
-package labaks.firebasechat;
+package labaks.ratings;
 
 import android.util.Log;
 
