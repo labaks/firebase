@@ -1,16 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <TextView
-        android:id="@+id/tvItemName"
+    <ImageView
+        android:id="@+id/ivItemImage"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
-        android:text="itemName" />
+        app:srcCompat="@mipmap/ic_launcher" />
 
     <TextView
         android:id="@+id/tvTextTotalRate"
@@ -31,6 +32,34 @@
         android:text="0" />
 
     <TextView
+        android:id="@+id/tvTextNumberOfRaters"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/tvNumberOfRaters"
+        android:layout_alignBottom="@+id/tvNumberOfRaters"
+        android:layout_toLeftOf="@+id/tvTotalRate"
+        android:layout_toStartOf="@+id/tvTotalRate"
+        android:text="Number of raters: " />
+
+    <TextView
+        android:id="@+id/tvNumberOfRaters"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_below="@+id/tvTotalRate"
+        android:text="0" />
+
+    <TextView
+        android:id="@+id/tvItemName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/ivItemImage"
+        android:text="itemName" />
+
+    <TextView
         android:id="@+id/tvTextYouRate"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -47,21 +76,4 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:layout_below="@+id/tvTextYouRate" />
-
-    <TextView
-        android:id="@+id/tvNumberOfRaters"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_above="@+id/rbItemRate"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentRight="true"
-        android:text="0" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/tvTextTotalRate"
-        android:layout_toLeftOf="@+id/tvNumberOfRaters"
-        android:layout_toStartOf="@+id/tvNumberOfRaters"
-        android:text="Number of raters: " />
 </RelativeLayout>
