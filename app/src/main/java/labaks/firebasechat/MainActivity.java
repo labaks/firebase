@@ -23,6 +23,8 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.FirebaseDatabase;
 
+import static java.lang.String.format;
+
 public class MainActivity extends AppCompatActivity {
 
     private static int SIGN_IN_REQUEST_CODE = 1;
@@ -31,6 +33,7 @@ public class MainActivity extends AppCompatActivity {
     RelativeLayout activity_main;
     Button button;
     boolean chat = true;
+    RatingBar ratingBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -94,18 +97,39 @@ public class MainActivity extends AppCompatActivity {
                 R.layout.item,
                 FirebaseDatabase.getInstance().getReference().child("items")) {
             @Override
-            protected void populateView(View v, Item model, int position) {
-                TextView name;
-                RatingBar userRatingBar;
-                TextView totalRate;
-                name = (TextView) v.findViewById(R.id.tvItemName);
-                userRatingBar = (RatingBar) v.findViewById(R.id.rbItemRate);
-                totalRate = (TextView) v.findViewById(R.id.tvTotalRate);
+            protected void populateView(View v, final Item model, final int position) {
+                final String userId = FirebaseAuth.getInstance().getCurrentUser().getDisplayName();
+                TextView tv_name, tv_number_of_raters;
+                RatingBar rb_userRatingBar;
+                final TextView tv_totalRate;
+                tv_name = (TextView) v.findViewById(R.id.tvItemName);
+                rb_userRatingBar = (RatingBar) v.findViewById(R.id.rbItemRate);
+                tv_totalRate = (TextView) v.findViewById(R.id.tvTotalRate);
+                tv_number_of_raters = (TextView) v.findViewById(R.id.tvNumberOfRaters);
 
+                tv_name.setText(model.getName());
+                if (model.getUsersRate().get(userId) != null) {
+                    rb_userRatingBar.setRating(model.getUsersRate().get(userId));
+                } else {
+                    rb_userRatingBar.setRating(0);
+                }
+                tv_totalRate.setText(Float.toString(model.getTotalRate()));
+                tv_number_of_raters.setText(Integer.toString(model.getUsersRate().size()));
+                rb_userRatingBar.setOnRatingBarChangeListener(new RatingBar.OnRatingBarChangeListener() {
+                    @Override
+                    public void onRatingChanged(RatingBar ratingBar, float v, boolean b) {
+                        FirebaseDatabase.getInstance().getReference().child("items")
+                                .child(format("Item%d", position))
+                                .child("usersRate")
+                                .child(userId)
+                                .setValue(v);
+                        FirebaseDatabase.getInstance().getReference().child("items")
+                                .child(format("Item%d", position))
+                                .child("totalRate")
+                                .setValue(model.getTotalRate());
+                    }
+                });
 
-                name.setText(model.getName());
-                userRatingBar.setRating(model.getUsersRate().get(FirebaseAuth.getInstance().getCurrentUser().getDisplayName()));
-                totalRate.setText(Float.toString(model.getTotalRate()));
             }
         };
         listItem.setAdapter(itemAdapter);
@@ -145,7 +169,7 @@ public class MainActivity extends AppCompatActivity {
                     });
         }
         if (item.getItemId() == R.id.menu_switch_list) {
-            if(!chat){
+            if (!chat) {
                 displayChat();
                 item.setIcon(R.drawable.star);
             } else {

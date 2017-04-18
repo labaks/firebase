@@ -34,17 +34,34 @@
         android:id="@+id/tvTextYouRate"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/rbItemRate"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
+        android:layout_below="@+id/tvItemName"
         android:text="You Rate:" />
 
     <RatingBar
         android:id="@+id/rbItemRate"
-        style="?android:attr/ratingBarStyleSmall"
+        style="?android:attr/ratingBarStyle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/tvTextYouRate" />
+
+    <TextView
+        android:id="@+id/tvNumberOfRaters"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/rbItemRate"
         android:layout_alignParentEnd="true"
         android:layout_alignParentRight="true"
-        android:layout_below="@+id/tvTextTotalRate" />
+        android:text="0" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tvTextTotalRate"
+        android:layout_toLeftOf="@+id/tvNumberOfRaters"
+        android:layout_toStartOf="@+id/tvNumberOfRaters"
+        android:text="Number of raters:" />
 </RelativeLayout>
