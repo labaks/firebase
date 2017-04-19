@@ -26,6 +26,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
+import com.squareup.picasso.Picasso;
 
 import static java.lang.String.format;
 
@@ -76,7 +77,7 @@ public class MainActivity extends AppCompatActivity {
                     @Override
                     public void onSuccess(Uri uri) {
                         Log.e("Image URL", String.valueOf(uri));
-
+                        Picasso.with(getApplicationContext()).load(uri).into(iv_itemImage);
                     }
                 }).addOnFailureListener(new OnFailureListener() {
                     @Override
