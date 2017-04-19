@@ -61,7 +61,7 @@ public class MainActivity extends AppCompatActivity {
                 FirebaseDatabase.getInstance().getReference().child("items")) {
             @Override
             protected void populateView(View v, final Item model, final int position) {
-                final String userId = FirebaseAuth.getInstance().getCurrentUser().getDisplayName();
+                final String userId = FirebaseAuth.getInstance().getCurrentUser().getUid();
                 TextView tv_name, tv_number_of_raters;
                 RatingBar rb_userRatingBar;
                 final TextView tv_totalRate;
@@ -92,7 +92,7 @@ public class MainActivity extends AppCompatActivity {
                 } else {
                     rb_userRatingBar.setRating(0);
                 }
-                tv_totalRate.setText(Float.toString(model.getTotalRate()));
+                tv_totalRate.setText(String.format("%.1f", model.getTotalRate()));
                 tv_number_of_raters.setText(Integer.toString(model.getUsersRate().size()));
                 rb_userRatingBar.setOnRatingBarChangeListener(new RatingBar.OnRatingBarChangeListener() {
                     @Override
@@ -142,7 +142,9 @@ public class MainActivity extends AppCompatActivity {
                         @Override
                         public void onComplete(@NonNull Task<Void> task) {
                             Snackbar.make(activity_main, "Выход выполнен", Snackbar.LENGTH_SHORT).show();
-                            finish();
+                            startActivityForResult(AuthUI.getInstance()
+                                    .createSignInIntentBuilder()
+                                    .build(), SIGN_IN_REQUEST_CODE);
                         }
                     });
         }
