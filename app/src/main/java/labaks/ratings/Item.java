@@ -2,9 +2,10 @@ package labaks.ratings;
 
 import android.util.Log;
 
+import java.io.Serializable;
 import java.util.Map;
 
-public class Item {
+public class Item implements Serializable {
 
     private String name;
     private float totalRate;

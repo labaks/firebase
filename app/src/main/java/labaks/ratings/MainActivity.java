@@ -28,6 +28,8 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.squareup.picasso.Picasso;
 
+import java.io.Serializable;
+
 import static java.lang.String.format;
 
 public class MainActivity extends AppCompatActivity {
@@ -114,7 +116,10 @@ public class MainActivity extends AppCompatActivity {
                     @Override
                     public void onClick(View view) {
                         Intent myIntent = new Intent(MainActivity.this, itemProfile.class);
-                        myIntent.putExtra("itemId", itemId);
+
+                        Bundle bundle = new Bundle();
+                        bundle.putSerializable("item", model);
+                        myIntent.putExtras(bundle);
                         startActivity(myIntent);
                     }
                 });
