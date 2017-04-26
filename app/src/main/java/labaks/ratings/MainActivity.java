@@ -54,7 +54,7 @@ public class MainActivity extends AppCompatActivity {
 
     private void displayItems() {
 
-        ListView listItem = (ListView) findViewById(R.id.listView);
+        final ListView listItem = (ListView) findViewById(R.id.listView);
         itemAdapter = new FirebaseListAdapter<Item>(this,
                 Item.class,
                 R.layout.item,
@@ -66,13 +66,14 @@ public class MainActivity extends AppCompatActivity {
                 RatingBar rb_userRatingBar;
                 final TextView tv_totalRate;
                 final ImageView iv_itemImage;
+                final String itemId = format("item%d", position);
                 tv_name = (TextView) v.findViewById(R.id.tvItemName);
                 rb_userRatingBar = (RatingBar) v.findViewById(R.id.rbItemRate);
                 tv_totalRate = (TextView) v.findViewById(R.id.tvTotalRate);
                 tv_number_of_raters = (TextView) v.findViewById(R.id.tvNumberOfRaters);
                 iv_itemImage = (ImageView) v.findViewById(R.id.ivItemImage);
 
-                StorageReference storageReference = FirebaseStorage.getInstance().getReference().child("itemsImages/item" + position + ".png");
+                StorageReference storageReference = FirebaseStorage.getInstance().getReference().child("itemsImages/" + itemId + ".png");
                 storageReference.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
                     @Override
                     public void onSuccess(Uri uri) {
@@ -98,14 +99,23 @@ public class MainActivity extends AppCompatActivity {
                     @Override
                     public void onRatingChanged(RatingBar ratingBar, float v, boolean b) {
                         FirebaseDatabase.getInstance().getReference().child("items")
-                                .child(format("Item%d", position))
+                                .child(itemId)
                                 .child("usersRate")
                                 .child(userId)
                                 .setValue(v);
                         FirebaseDatabase.getInstance().getReference().child("items")
-                                .child(format("Item%d", position))
+                                .child(itemId)
                                 .child("totalRate")
                                 .setValue(model.getTotalRate());
+                    }
+                });
+
+                v.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        Intent myIntent = new Intent(MainActivity.this, itemProfile.class);
+                        myIntent.putExtra("itemId", itemId);
+                        startActivity(myIntent);
                     }
                 });
 
