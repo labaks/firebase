@@ -1,6 +1,7 @@
 package labaks.ratings;
 
 import android.content.Intent;
+import android.graphics.Typeface;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -12,7 +13,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.ListView;
-import android.widget.RatingBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -53,6 +53,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void displayItems() {
+        final Typeface iconFont = FontManager.getTypeface(getApplicationContext(), FontManager.FONTAWESOME);
 
         final ListView listItem = (ListView) findViewById(R.id.listView);
         itemAdapter = new FirebaseListAdapter<Item>(this,
@@ -61,17 +62,30 @@ public class MainActivity extends AppCompatActivity {
                 FirebaseDatabase.getInstance().getReference().child("items")) {
             @Override
             protected void populateView(View v, final Item model, final int position) {
-                final String userId = FirebaseAuth.getInstance().getCurrentUser().getUid();
-                TextView tv_name, tv_number_of_raters;
-                RatingBar rb_userRatingBar;
-                final TextView tv_totalRate;
+                TextView tv_alcoholIcon, tv_volumeIcon, tv_priceIcon, tv_totalRatingIcon, tv_numberOfRatersIcon;
+                TextView tv_name, tv_alcohol, tv_volume, tv_price, tv_totalRating, tv_numberOfRaters;
                 final ImageView iv_itemImage;
                 final String itemId = format("item%d", position);
+                tv_alcoholIcon = (TextView) v.findViewById(R.id.tvAlcoholIcon);
+                tv_volumeIcon = (TextView) v.findViewById(R.id.tvVolumeIcon);
+                tv_priceIcon = (TextView) v.findViewById(R.id.tvPriceIcon);
+                tv_totalRatingIcon = (TextView) v.findViewById(R.id.tvTotalRatingIcon);
+                tv_numberOfRatersIcon = (TextView) v.findViewById(R.id.tvNumberOfRatersIcon);
+
+                tv_alcoholIcon.setTypeface(iconFont);
+                tv_volumeIcon.setTypeface(iconFont);
+                tv_priceIcon.setTypeface(iconFont);
+                tv_totalRatingIcon.setTypeface(iconFont);
+                tv_numberOfRatersIcon.setTypeface(iconFont);
+
                 tv_name = (TextView) v.findViewById(R.id.tvItemName);
-                rb_userRatingBar = (RatingBar) v.findViewById(R.id.rbItemRate);
-                tv_totalRate = (TextView) v.findViewById(R.id.tvTotalRate);
-                tv_number_of_raters = (TextView) v.findViewById(R.id.tvNumberOfRaters);
-                iv_itemImage = (ImageView) v.findViewById(R.id.ivItemImage);
+                tv_alcohol = (TextView) v.findViewById(R.id.tvAlcohol);
+                tv_volume = (TextView) v.findViewById(R.id.tvVolume);
+                tv_price = (TextView) v.findViewById(R.id.tvPrice);
+                tv_totalRating = (TextView) v.findViewById(R.id.tvTotalRating);
+                tv_numberOfRaters = (TextView) v.findViewById(R.id.tvNumberOfRaters);
+
+                iv_itemImage = (ImageView) v.findViewById(R.id.iv_itemLogo);
 
                 StorageReference storageReference = FirebaseStorage.getInstance().getReference().child("itemsImages/" + itemId + ".png");
                 storageReference.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
@@ -88,27 +102,17 @@ public class MainActivity extends AppCompatActivity {
                 });
 
                 tv_name.setText(model.getName());
-                if (model.getUsersRate().get(userId) != null) {
-                    rb_userRatingBar.setRating(model.getUsersRate().get(userId));
+                tv_alcohol.setText(String.format("%.1f", model.getAlcohol()));
+                if (model.getVolume2() != 0) {
+                    tv_volume.setText(String.valueOf(model.getVolume()) + "/" + String.valueOf(model.getVolume2()) + " ml");
+                    tv_price.setText(String.format("%.2f", model.getPrice()) + "/" + String.format("%.2f", model.getPrice2()) + " lv");
                 } else {
-                    rb_userRatingBar.setRating(0);
+                    tv_volume.setText(String.valueOf(model.getVolume()) + " ml");
+                    tv_price.setText(String.format("%.2f", model.getPrice()) + " lv");
                 }
-                tv_totalRate.setText(String.format("%.1f", model.getTotalRate()));
-                tv_number_of_raters.setText(Integer.toString(model.getUsersRate().size()));
-                rb_userRatingBar.setOnRatingBarChangeListener(new RatingBar.OnRatingBarChangeListener() {
-                    @Override
-                    public void onRatingChanged(RatingBar ratingBar, float v, boolean b) {
-                        FirebaseDatabase.getInstance().getReference().child("items")
-                                .child(itemId)
-                                .child("usersRate")
-                                .child(userId)
-                                .setValue(v);
-                        FirebaseDatabase.getInstance().getReference().child("items")
-                                .child(itemId)
-                                .child("totalRate")
-                                .setValue(model.getTotalRate());
-                    }
-                });
+                tv_totalRating.setText(String.format("%.1f", model.getTotalRate()));
+                tv_numberOfRaters.setText(Integer.toString(model.getUsersRate().size()));
+                tv_totalRating.setText(String.format("%.1f", model.getTotalRate()));
 
                 v.setOnClickListener(new View.OnClickListener() {
                     @Override
