@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">Ratings</string>
+    <string name="your_rating">Your rating:</string>
+    <string name="description">Description:</string>
 </resources>
