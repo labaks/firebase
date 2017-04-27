@@ -17,7 +17,9 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".itemProfile"></activity>
+        <activity
+            android:name=".itemProfile"
+            android:theme="@style/AppTheme.NoActionBar" />
     </application>
 
 </manifest>
