@@ -10,14 +10,13 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import com.firebase.ui.auth.AuthUI;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.FirebaseDatabase;
-
-import static java.lang.String.format;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -49,7 +48,13 @@ public class MainActivity extends AppCompatActivity {
             @Override
             protected void populateView(View v, final Item model, final int position) {
                 super.populateView(v, model, position);
-                final String itemId = format("item%d", position);
+                final String itemId = String.valueOf(this.getRef(position))
+                        .replace(String.valueOf(FirebaseDatabase.getInstance().getReference().child("items")) + "/", "");
+
+                // Temporary
+                TextView tvRef = (TextView) v.findViewById(R.id.tvRef);
+                tvRef.setText(itemId);
+                //
 
                 v.setOnClickListener(new View.OnClickListener() {
                     @Override

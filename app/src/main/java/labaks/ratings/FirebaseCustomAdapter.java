@@ -12,12 +12,11 @@ import android.widget.TextView;
 import com.firebase.ui.database.FirebaseListAdapter;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.squareup.picasso.Picasso;
-
-import static java.lang.String.format;
 
 abstract class FirebaseCustomAdapter extends FirebaseListAdapter<Item> {
 
@@ -32,7 +31,8 @@ abstract class FirebaseCustomAdapter extends FirebaseListAdapter<Item> {
         TextView tv_alcoholIcon, tv_volumeIcon, tv_priceIcon, tv_totalRatingIcon, tv_numberOfRatersIcon;
         TextView tv_name, tv_alcohol, tv_volume, tv_price, tv_totalRating, tv_numberOfRaters;
         final ImageView iv_itemImage;
-        final String itemId = format("item%d", position);
+        final String itemId = String.valueOf(this.getRef(position))
+                .replace(String.valueOf(FirebaseDatabase.getInstance().getReference().child("items")) + "/", "");
         tv_alcoholIcon = (TextView) v.findViewById(R.id.tvAlcoholIcon);
         tv_volumeIcon = (TextView) v.findViewById(R.id.tvVolumeIcon);
         tv_priceIcon = (TextView) v.findViewById(R.id.tvPriceIcon);

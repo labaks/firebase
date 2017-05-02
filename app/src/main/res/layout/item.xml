@@ -13,11 +13,23 @@
         android:paddingLeft="10dp"
         android:text="itemName" />
 
+    <!--Temporary-->
+    <TextView
+        android:id="@+id/tvRef"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tvItemName"
+        android:layout_marginTop="2dp"
+        android:background="#9bcccccc"
+        android:paddingLeft="10dp"
+        android:text="itemName" />
+    <!---->
+
     <LinearLayout
         android:id="@+id/ll_logoBlock"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/tvItemName"
+        android:layout_below="@+id/tvRef"
         android:orientation="horizontal"
         android:weightSum="2">
 
