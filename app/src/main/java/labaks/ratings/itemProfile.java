@@ -46,7 +46,11 @@ public class itemProfile extends AppCompatActivity {
             @Override
             public void onSuccess(Uri uri) {
                 Log.e("Image URL", String.valueOf(uri));
-                Picasso.with(getApplicationContext()).load(uri).into(iv_itemImage);
+                Picasso.with(getApplicationContext())
+                        .load(uri)
+                        .placeholder(R.drawable.mug)
+                        .error(R.drawable.mug)
+                        .into(iv_itemImage);
             }
         }).addOnFailureListener(new OnFailureListener() {
             @Override
