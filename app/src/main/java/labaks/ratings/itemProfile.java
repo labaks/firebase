@@ -52,6 +52,7 @@ public class itemProfile extends AppCompatActivity {
             @Override
             public void onFailure(@NonNull Exception e) {
                 Log.e("Image URL", "FAILURE");
+                Picasso.with(getApplicationContext()).load(R.drawable.mug).into(iv_itemImage);
             }
         });
 
