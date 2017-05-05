@@ -8,7 +8,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.ListView;
+import android.widget.GridView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -42,8 +42,8 @@ public class MainActivity extends AppCompatActivity {
 
     private void displayItems() {
 
-        final ListView listItem = (ListView) findViewById(R.id.listView);
-        itemAdapter = new FirebaseCustomAdapter(this,
+        final GridView gridItem = (GridView) findViewById(R.id.gridView);
+        itemAdapter = new FirebaseCustomAdapter(this, this,
                 FirebaseDatabase.getInstance().getReference().child("items")) {
             @Override
             protected void populateView(View v, final Item model, final int position) {
@@ -69,7 +69,7 @@ public class MainActivity extends AppCompatActivity {
                 });
             }
         };
-        listItem.setAdapter(itemAdapter);
+        gridItem.setAdapter(itemAdapter);
     }
 
     @Override

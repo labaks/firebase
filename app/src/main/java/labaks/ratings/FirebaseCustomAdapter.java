@@ -1,6 +1,7 @@
 package labaks.ratings;
 
 import android.app.Activity;
+import android.content.Context;
 import android.graphics.Typeface;
 import android.net.Uri;
 import android.support.annotation.NonNull;
@@ -21,16 +22,18 @@ import com.squareup.picasso.Picasso;
 abstract class FirebaseCustomAdapter extends FirebaseListAdapter<Item> {
 
     final Typeface iconFont = FontManager.getTypeface(mActivity, FontManager.FONTAWESOME);
+    private Context context;
 
-    public FirebaseCustomAdapter(Activity activity, Query ref) {
+    public FirebaseCustomAdapter(Context context, Activity activity, Query ref) {
         super(activity, Item.class, R.layout.item, ref);
+        this.context = context;
     }
 
     @Override
     protected void populateView(View v, Item model, int position) {
         TextView tv_alcoholIcon, tv_volumeIcon, tv_priceIcon, tv_totalRatingIcon, tv_numberOfRatersIcon;
         TextView tv_name, tv_alcohol, tv_volume, tv_price, tv_totalRating, tv_numberOfRaters;
-        final ImageView iv_itemImage;
+        final ImageView iv_itemImage, iv_flag;
         final String itemId = String.valueOf(this.getRef(position))
                 .replace(String.valueOf(FirebaseDatabase.getInstance().getReference().child("items")) + "/", "");
         tv_alcoholIcon = (TextView) v.findViewById(R.id.tvAlcoholIcon);
@@ -86,5 +89,12 @@ abstract class FirebaseCustomAdapter extends FirebaseListAdapter<Item> {
         tv_totalRating.setText(String.format("%.1f", model.getTotalRate()));
         tv_numberOfRaters.setText(Integer.toString(model.getUsersRate().size()));
         tv_totalRating.setText(String.format("%.1f", model.getTotalRate()));
+
+        iv_flag = (ImageView) v.findViewById(R.id.iv_flag);
+        int flagId = context.getResources().getIdentifier(model.getCountry(), "drawable", context.getPackageName());
+        if (flagId != 0) {
+            iv_flag.setImageResource(flagId);
+        }
+
     }
 }

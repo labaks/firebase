@@ -27,7 +27,7 @@ public class itemProfile extends AppCompatActivity {
     private TextView tv_alcohol, tv_volume, tv_price, tv_totalRating, tv_numberOfRaters, tv_description;
     private RatingBar rb_userRatingBar;
     private String itemId;
-    ImageView iv_itemImage;
+    ImageView iv_itemImage, iv_flag;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -91,6 +91,12 @@ public class itemProfile extends AppCompatActivity {
         }
         tv_totalRating.setText(String.format("%.1f", item.getTotalRate()));
         tv_numberOfRaters.setText(Integer.toString(item.getUsersRate().size()));
+
+        iv_flag = (ImageView) findViewById(R.id.iv_flag);
+        int flagId = getApplicationContext().getResources().getIdentifier(item.getCountry(), "drawable", getPackageName());
+        if (flagId != 0) {
+            iv_flag.setImageResource(flagId);
+        }
 
         rb_userRatingBar = (RatingBar) findViewById(R.id.rbItemRate);
         if (item.getUsersRate().get(userId) != null) {
