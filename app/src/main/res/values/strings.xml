@@ -2,4 +2,11 @@
     <string name="app_name">Ratings</string>
     <string name="your_rating">Your rating:</string>
     <string name="description">Description:</string>
+    <string name="apply">Apply</string>
+    <string name="all_world">All world</string>
+    <string name="germany">Germany</string>
+    <string name="bulgaria">Bulgaria</string>
+    <string name="czech">Czech</string>
+    <string name="belgium">Belgium</string>
+    <string name="england">England</string>
 </resources>

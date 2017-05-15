@@ -8,12 +8,22 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
-    <style name="AppTheme.NoActionBar" parent="Theme.AppCompat.Light.NoActionBar"/>
+    <style name="AppTheme.NoActionBar" parent="Theme.AppCompat.Light.NoActionBar" />
 
     <style name="icon">
         <item name="android:textSize">18sp</item>
         <item name="android:layout_margin">3dp</item>
         <item name="android:textColor">#000</item>
+    </style>
+
+    <style name="dialogButton">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:drawablePadding">5dp</item>
+        <item name="android:gravity">left|center_vertical</item>
+        <item name="android:padding">5dp</item>
+        <item name="android:layout_margin">0dp</item>
+        <item name="android:background">@drawable/country_filter_bg</item>
     </style>
 
 </resources>
