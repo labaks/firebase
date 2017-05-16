@@ -1,4 +1,4 @@
-package labaks.ratings;
+package labaks.beerStopPub;
 
 import android.app.Activity;
 import android.content.Context;

@@ -1,4 +1,4 @@
-package labaks.ratings;
+package labaks.beerStopPub;
 
 import android.app.DialogFragment;
 import android.content.Intent;

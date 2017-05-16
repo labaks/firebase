@@ -1,4 +1,4 @@
-package labaks.ratings;
+package labaks.beerStopPub;
 
 import java.io.Serializable;
 import java.util.Map;

@@ -1,4 +1,4 @@
-package labaks.ratings;
+package labaks.beerStopPub;
 
 import android.content.Context;
 import android.graphics.Typeface;

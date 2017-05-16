@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Ratings</string>
+    <string name="app_name">Beer Stop Pub</string>
     <string name="your_rating">Your rating:</string>
     <string name="description">Description:</string>
     <string name="apply">Apply</string>

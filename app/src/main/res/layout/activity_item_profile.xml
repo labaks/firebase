@@ -5,7 +5,7 @@
     android:id="@+id/activity_item_profile"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="labaks.ratings.itemProfile">
+    tools:context="labaks.beerStopPub.itemProfile">
 
     <android.support.v7.widget.Toolbar
         android:id="@+id/toolbar"
