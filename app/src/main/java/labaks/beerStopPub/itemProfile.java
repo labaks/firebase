@@ -26,12 +26,13 @@ public class itemProfile extends AppCompatActivity {
     private RatingBar rb_userRatingBar;
     private String itemId;
     ImageView iv_itemImage, iv_flag;
-    private final Typeface iconFont = FontManager.getTypeface(getApplicationContext(), FontManager.FONTAWESOME);
+    private Typeface iconFont;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_item_profile);
+        iconFont = FontManager.getTypeface(getApplicationContext(), FontManager.FONTAWESOME);
 
         final String userId = FirebaseAuth.getInstance().getCurrentUser().getUid();
         item = (Item) getIntent().getExtras().getSerializable("item");
