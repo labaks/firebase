@@ -6,7 +6,6 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.TextView;
@@ -44,7 +43,6 @@ public class itemProfile extends AppCompatActivity {
         storageReference.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
             @Override
             public void onSuccess(Uri uri) {
-                Log.e("Image URL", String.valueOf(uri));
                 Picasso.with(getApplicationContext())
                         .load(uri)
                         .placeholder(R.drawable.mug)
@@ -54,7 +52,6 @@ public class itemProfile extends AppCompatActivity {
         }).addOnFailureListener(new OnFailureListener() {
             @Override
             public void onFailure(@NonNull Exception e) {
-                Log.e("Image URL", "FAILURE");
                 Picasso.with(getApplicationContext()).load(R.drawable.mug).into(iv_itemImage);
             }
         });

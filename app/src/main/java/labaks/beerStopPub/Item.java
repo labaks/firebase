@@ -25,7 +25,7 @@ public class Item implements Serializable {
         this.name = name;
     }
 
-    float getTotalRate() {
+    public float getTotalRate() {
         return calculateTotalRate();
     }
 
@@ -41,7 +41,7 @@ public class Item implements Serializable {
         // need it
     }
 
-    Map<String, Float> getUsersRate() {
+    public Map<String, Float> getUsersRate() {
         return usersRate;
     }
 
@@ -50,7 +50,7 @@ public class Item implements Serializable {
         totalRate = calculateTotalRate();
     }
 
-    float getAlcohol() {
+    public float getAlcohol() {
         return alcohol;
     }
 
@@ -58,7 +58,7 @@ public class Item implements Serializable {
         this.alcohol = alcohol;
     }
 
-    String getCountry() {
+    public String getCountry() {
         return country;
     }
 
@@ -66,7 +66,7 @@ public class Item implements Serializable {
         this.country = country;
     }
 
-    String getDescription() {
+    public String getDescription() {
         return description;
     }
 
@@ -74,7 +74,7 @@ public class Item implements Serializable {
         this.description = description;
     }
 
-    float getPrice() {
+    public float getPrice() {
         return price;
     }
 
@@ -82,7 +82,7 @@ public class Item implements Serializable {
         this.price = price;
     }
 
-    int getVolume() {
+    public int getVolume() {
         return volume;
     }
 
@@ -90,7 +90,7 @@ public class Item implements Serializable {
         this.volume = volume;
     }
 
-    float getPrice2() {
+    public float getPrice2() {
         return price2;
     }
 
@@ -98,7 +98,7 @@ public class Item implements Serializable {
         this.price2 = price2;
     }
 
-    int getVolume2() {
+    public int getVolume2() {
         return volume2;
     }
 

@@ -5,7 +5,6 @@ import android.content.Context;
 import android.graphics.Typeface;
 import android.net.Uri;
 import android.support.annotation.NonNull;
-import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -55,7 +54,6 @@ abstract class FirebaseCustomAdapter extends FirebaseListAdapter<Item> {
         storageReference.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
             @Override
             public void onSuccess(Uri uri) {
-                Log.e("Image URL", String.valueOf(uri));
                 Picasso.with(mActivity)
                         .load(uri)
                         .fit()
@@ -66,7 +64,6 @@ abstract class FirebaseCustomAdapter extends FirebaseListAdapter<Item> {
         }).addOnFailureListener(new OnFailureListener() {
             @Override
             public void onFailure(@NonNull Exception e) {
-                Log.e("Image URL", "FAILURE");
                 Picasso.with(mActivity).load(R.drawable.mug).into(iv_itemImage);
             }
         });
