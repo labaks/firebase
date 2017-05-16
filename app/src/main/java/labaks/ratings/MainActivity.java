@@ -22,13 +22,13 @@ import com.google.firebase.database.Query;
 
 public class MainActivity extends AppCompatActivity {
 
-    private static int SIGN_IN_REQUEST_CODE = 1;
-    RelativeLayout activity_main;
-    GridView gridItem;
-    Query query;
-    DatabaseReference ref = FirebaseDatabase.getInstance().getReference().child("items");
+    private static final int SIGN_IN_REQUEST_CODE = 1;
+    private RelativeLayout activity_main;
+    private GridView gridItem;
+    private Query query;
+    final private DatabaseReference ref = FirebaseDatabase.getInstance().getReference().child("items");
 
-    final String world = "world";
+    final private String world = "world";
 
     DialogFragment filter;
 

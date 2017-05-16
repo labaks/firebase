@@ -21,32 +21,26 @@ import com.squareup.picasso.Picasso;
 
 abstract class FirebaseCustomAdapter extends FirebaseListAdapter<Item> {
 
-    final Typeface iconFont = FontManager.getTypeface(mActivity, FontManager.FONTAWESOME);
+    private final Typeface iconFont = FontManager.getTypeface(mActivity, FontManager.FONTAWESOME);
     private Context context;
 
-    public FirebaseCustomAdapter(Context context, Activity activity, Query ref) {
+    FirebaseCustomAdapter(Context context, Activity activity, Query ref) {
         super(activity, Item.class, R.layout.item, ref);
         this.context = context;
     }
 
     @Override
     protected void populateView(View v, Item model, int position) {
-        TextView tv_alcoholIcon, tv_volumeIcon, tv_priceIcon, tv_totalRatingIcon, tv_numberOfRatersIcon;
         TextView tv_name, tv_alcohol, tv_volume, tv_price, tv_totalRating, tv_numberOfRaters;
         final ImageView iv_itemImage, iv_flag;
         final String itemId = String.valueOf(this.getRef(position))
                 .replace(String.valueOf(FirebaseDatabase.getInstance().getReference().child("items")) + "/", "");
-        tv_alcoholIcon = (TextView) v.findViewById(R.id.tvAlcoholIcon);
-        tv_volumeIcon = (TextView) v.findViewById(R.id.tvVolumeIcon);
-        tv_priceIcon = (TextView) v.findViewById(R.id.tvPriceIcon);
-        tv_totalRatingIcon = (TextView) v.findViewById(R.id.tvTotalRatingIcon);
-        tv_numberOfRatersIcon = (TextView) v.findViewById(R.id.tvNumberOfRatersIcon);
 
-        tv_alcoholIcon.setTypeface(iconFont);
-        tv_volumeIcon.setTypeface(iconFont);
-        tv_priceIcon.setTypeface(iconFont);
-        tv_totalRatingIcon.setTypeface(iconFont);
-        tv_numberOfRatersIcon.setTypeface(iconFont);
+        setIconToTextView(v, R.id.tvAlcoholIcon);
+        setIconToTextView(v, R.id.tvVolumeIcon);
+        setIconToTextView(v, R.id.tvPriceIcon);
+        setIconToTextView(v, R.id.tvTotalRatingIcon);
+        setIconToTextView(v, R.id.tvNumberOfRatersIcon);
 
         tv_name = (TextView) v.findViewById(R.id.tvItemName);
         tv_alcohol = (TextView) v.findViewById(R.id.tvAlcohol);
@@ -96,5 +90,11 @@ abstract class FirebaseCustomAdapter extends FirebaseListAdapter<Item> {
             iv_flag.setImageResource(flagId);
         }
 
+    }
+
+    private void setIconToTextView(View v, int textViewId) {
+        TextView tvWithIcon;
+        tvWithIcon = (TextView) v.findViewById(textViewId);
+        tvWithIcon.setTypeface(iconFont);
     }
 }

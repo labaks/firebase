@@ -23,11 +23,11 @@ public class itemProfile extends AppCompatActivity {
 
     private Toolbar toolbar;
     private Item item;
-    private TextView tv_alcoholIcon, tv_volumeIcon, tv_priceIcon, tv_totalRatingIcon, tv_numberOfRatersIcon;
     private TextView tv_alcohol, tv_volume, tv_price, tv_totalRating, tv_numberOfRaters, tv_description;
     private RatingBar rb_userRatingBar;
     private String itemId;
     ImageView iv_itemImage, iv_flag;
+    private final Typeface iconFont = FontManager.getTypeface(getApplicationContext(), FontManager.FONTAWESOME);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,7 +37,6 @@ public class itemProfile extends AppCompatActivity {
         final String userId = FirebaseAuth.getInstance().getCurrentUser().getUid();
         item = (Item) getIntent().getExtras().getSerializable("item");
         itemId = getIntent().getExtras().getString("itemId");
-        Typeface iconFont = FontManager.getTypeface(getApplicationContext(), FontManager.FONTAWESOME);
 
         iv_itemImage = (ImageView) findViewById(R.id.iv_itemLogo);
 
@@ -60,17 +59,11 @@ public class itemProfile extends AppCompatActivity {
             }
         });
 
-        tv_alcoholIcon = (TextView) findViewById(R.id.tvAlcoholIcon);
-        tv_volumeIcon = (TextView) findViewById(R.id.tvVolumeIcon);
-        tv_priceIcon = (TextView) findViewById(R.id.tvPriceIcon);
-        tv_totalRatingIcon = (TextView) findViewById(R.id.tvTotalRatingIcon);
-        tv_numberOfRatersIcon = (TextView) findViewById(R.id.tvNumberOfRatersIcon);
-
-        tv_alcoholIcon.setTypeface(iconFont);
-        tv_volumeIcon.setTypeface(iconFont);
-        tv_priceIcon.setTypeface(iconFont);
-        tv_totalRatingIcon.setTypeface(iconFont);
-        tv_numberOfRatersIcon.setTypeface(iconFont);
+        setIconToTextView(R.id.tvAlcoholIcon);
+        setIconToTextView(R.id.tvVolumeIcon);
+        setIconToTextView(R.id.tvPriceIcon);
+        setIconToTextView(R.id.tvTotalRatingIcon);
+        setIconToTextView(R.id.tvNumberOfRatersIcon);
 
         tv_alcohol = (TextView) findViewById(R.id.tvAlcohol);
         tv_volume = (TextView) findViewById(R.id.tvVolume);
@@ -122,5 +115,11 @@ public class itemProfile extends AppCompatActivity {
 
         tv_description = (TextView) findViewById(R.id.tvDescription);
         tv_description.setText(item.getDescription());
+    }
+
+    private void setIconToTextView(int textViewId) {
+        TextView tvWithIcon;
+        tvWithIcon = (TextView) findViewById(textViewId);
+        tvWithIcon.setTypeface(iconFont);
     }
 }

@@ -1,7 +1,5 @@
 package labaks.ratings;
 
-import android.util.Log;
-
 import java.io.Serializable;
 import java.util.Map;
 
@@ -16,30 +14,18 @@ public class Item implements Serializable {
     private float totalRate;
     private Map<String, Float> usersRate;
 
-//    public Item(String name, float totalRate, Map<String, Float> usersRate) {
-//        Log.e("CONSTR", "params");
-//        this.name = name;
-//        this.totalRate = totalRate;
-//        this.usersRate = usersRate;
-//    }
-
     public Item() {
-        Log.e("CONSTR", "empty");
-
     }
 
     public String getName() {
-        Log.e("get", "name");
         return name;
     }
 
     public void setName(String name) {
-        Log.e("set", "name");
         this.name = name;
     }
 
-    public float getTotalRate() {
-        Log.e("get", "totalRate");
+    float getTotalRate() {
         return calculateTotalRate();
     }
 
@@ -52,22 +38,19 @@ public class Item implements Serializable {
     }
 
     public void setTotalRate(float totalRate) {
-        Log.e("set", "totalRate");
         // need it
     }
 
-    public Map<String, Float> getUsersRate() {
-        Log.e("get", "usersRate");
+    Map<String, Float> getUsersRate() {
         return usersRate;
     }
 
     public void setUsersRate(Map<String, Float> usersRate) {
-        Log.e("set", "usersRate");
         this.usersRate = usersRate;
         totalRate = calculateTotalRate();
     }
 
-    public float getAlcohol() {
+    float getAlcohol() {
         return alcohol;
     }
 
@@ -75,7 +58,7 @@ public class Item implements Serializable {
         this.alcohol = alcohol;
     }
 
-    public String getCountry() {
+    String getCountry() {
         return country;
     }
 
@@ -83,7 +66,7 @@ public class Item implements Serializable {
         this.country = country;
     }
 
-    public String getDescription() {
+    String getDescription() {
         return description;
     }
 
@@ -91,7 +74,7 @@ public class Item implements Serializable {
         this.description = description;
     }
 
-    public float getPrice() {
+    float getPrice() {
         return price;
     }
 
@@ -99,7 +82,7 @@ public class Item implements Serializable {
         this.price = price;
     }
 
-    public int getVolume() {
+    int getVolume() {
         return volume;
     }
 
@@ -107,7 +90,7 @@ public class Item implements Serializable {
         this.volume = volume;
     }
 
-    public float getPrice2() {
+    float getPrice2() {
         return price2;
     }
 
@@ -115,7 +98,7 @@ public class Item implements Serializable {
         this.price2 = price2;
     }
 
-    public int getVolume2() {
+    int getVolume2() {
         return volume2;
     }
 

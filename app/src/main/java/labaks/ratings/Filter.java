@@ -30,41 +30,12 @@ public class Filter extends DialogFragment implements OnClickListener {
 //            }
 //        });
 
-        Drawable drawableWorld = getActivity().getResources().getDrawable(R.drawable.world);
-        drawableWorld.setBounds(0, 0, 60, 60);
-        Button btnWorld = (Button) v.findViewById(R.id.world);
-        btnWorld.setCompoundDrawables(drawableWorld, null, null, null);
-        btnWorld.setOnClickListener(this);
-
-        Drawable drawableBelgium = getActivity().getResources().getDrawable(R.drawable.belgium);
-        drawableBelgium.setBounds(0, 0, 60, 60);
-        Button btnBelgium = (Button) v.findViewById(R.id.belgium);
-        btnBelgium.setCompoundDrawables(drawableBelgium, null, null, null);
-        btnBelgium.setOnClickListener(this);
-
-        Drawable drawableBulgaria = getActivity().getResources().getDrawable(R.drawable.bulgaria);
-        drawableBulgaria.setBounds(0, 0, 60, 60);
-        Button btnBulgaria = (Button) v.findViewById(R.id.bulgaria);
-        btnBulgaria.setCompoundDrawables(drawableBulgaria, null, null, null);
-        btnBulgaria.setOnClickListener(this);
-
-        Drawable drawableCzech = getActivity().getResources().getDrawable(R.drawable.czech);
-        drawableCzech.setBounds(0, 0, 60, 60);
-        Button btnCzech = (Button) v.findViewById(R.id.czech);
-        btnCzech.setCompoundDrawables(drawableCzech, null, null, null);
-        btnCzech.setOnClickListener(this);
-
-        Drawable drawableEngland = getActivity().getResources().getDrawable(R.drawable.england);
-        drawableEngland.setBounds(0, 0, 60, 60);
-        Button btnEngland = (Button) v.findViewById(R.id.england);
-        btnEngland.setCompoundDrawables(drawableEngland, null, null, null);
-        btnEngland.setOnClickListener(this);
-
-        Drawable drawableGermany = getActivity().getResources().getDrawable(R.drawable.germany);
-        drawableGermany.setBounds(0, 0, 60, 60);
-        Button btnGermany = (Button) v.findViewById(R.id.germany);
-        btnGermany.setCompoundDrawables(drawableGermany, null, null, null);
-        btnGermany.setOnClickListener(this);
+        generateBtn(v, R.drawable.world, R.id.world);
+        generateBtn(v, R.drawable.belgium, R.id.belgium);
+        generateBtn(v, R.drawable.bulgaria, R.id.bulgaria);
+        generateBtn(v, R.drawable.czech, R.id.czech);
+        generateBtn(v, R.drawable.england, R.id.england);
+        generateBtn(v, R.drawable.germany, R.id.germany);
 
         return v;
     }
@@ -84,5 +55,13 @@ public class Filter extends DialogFragment implements OnClickListener {
 
     public void onCancel(DialogInterface dialog) {
         super.onCancel(dialog);
+    }
+
+    private void generateBtn(View v, int drawableId, int btnId) {
+        Drawable drawable = getActivity().getResources().getDrawable(drawableId);
+        drawable.setBounds(0, 0, 60, 60);
+        Button button = (Button) v.findViewById(btnId);
+        button.setCompoundDrawables(drawable, null, null, null);
+        button.setOnClickListener(this);
     }
 }
