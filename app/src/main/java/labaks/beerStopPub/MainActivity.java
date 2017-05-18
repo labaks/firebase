@@ -11,6 +11,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.GridView;
 import android.widget.RelativeLayout;
+import android.widget.Toast;
 
 import com.firebase.ui.auth.AuthUI;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -26,9 +27,9 @@ public class MainActivity extends AppCompatActivity {
     private RelativeLayout activity_main;
     private GridView gridItem;
     private Query query;
-    final private DatabaseReference ref = FirebaseDatabase.getInstance().getReference().child("items");
+    private final DatabaseReference ref = FirebaseDatabase.getInstance().getReference().child("items");
 
-    final private String world = "world";
+    private final String world = "world";
 
     DialogFragment filter;
 
@@ -47,6 +48,7 @@ public class MainActivity extends AppCompatActivity {
                     .createSignInIntentBuilder()
                     .build(), SIGN_IN_REQUEST_CODE);
         } else {
+            invalidateOptionsMenu();
             displayItems(world);
         }
     }
@@ -67,7 +69,7 @@ public class MainActivity extends AppCompatActivity {
                 v.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        Intent myIntent = new Intent(MainActivity.this, itemProfile.class);
+                        Intent myIntent = new Intent(MainActivity.this, ItemProfile.class);
                         Bundle bundle = new Bundle();
                         bundle.putSerializable("item", model);
                         bundle.putString("itemId", itemId);
@@ -86,7 +88,9 @@ public class MainActivity extends AppCompatActivity {
         if (requestCode == SIGN_IN_REQUEST_CODE) {
             if (resultCode == RESULT_OK) {
                 Snackbar.make(activity_main, "Вход выполнен", Snackbar.LENGTH_SHORT).show();
+                Toast.makeText(this, "User: " + FirebaseAuth.getInstance().getCurrentUser().getEmail(), Toast.LENGTH_LONG).show();
                 displayItems(world);
+                invalidateOptionsMenu();
             } else {
                 Snackbar.make(activity_main, "Вход не выполнен", Snackbar.LENGTH_SHORT).show();
                 finish();
@@ -97,6 +101,9 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu, menu);
+        boolean isAdmin = FirebaseAuth.getInstance().getCurrentUser().getEmail().equals("labaks93@gmail.com");
+        MenuItem add = menu.findItem(R.id.menu_add);
+        add.setVisible(isAdmin);
         return true;
     }
 
@@ -105,6 +112,10 @@ public class MainActivity extends AppCompatActivity {
         int id = item.getItemId();
 
         switch (id) {
+            case R.id.menu_add:
+                Intent myIntent = new Intent(MainActivity.this, AddItem.class);
+                startActivity(myIntent);
+                return true;
             case R.id.menu_filter:
                 filter.show(getFragmentManager(), "filter");
                 return true;

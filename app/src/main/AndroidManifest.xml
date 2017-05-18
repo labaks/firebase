@@ -10,7 +10,7 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name="labaks.beerStopPub.MainActivity">
+        <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -18,8 +18,9 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="labaks.beerStopPub.itemProfile"
+            android:name=".ItemProfile"
             android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".AddItem"></activity>
     </application>
 
 </manifest>

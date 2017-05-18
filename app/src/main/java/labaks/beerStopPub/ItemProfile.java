@@ -18,7 +18,7 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.squareup.picasso.Picasso;
 
-public class itemProfile extends AppCompatActivity {
+public class ItemProfile extends AppCompatActivity {
 
     private Toolbar toolbar;
     private Item item;
