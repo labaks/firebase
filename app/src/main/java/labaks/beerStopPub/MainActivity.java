@@ -28,6 +28,7 @@ public class MainActivity extends AppCompatActivity {
     private GridView gridItem;
     private Query query;
     private final DatabaseReference ref = FirebaseDatabase.getInstance().getReference().child("items");
+    private boolean isAdmin = false;
 
     private final String world = "world";
 
@@ -48,6 +49,7 @@ public class MainActivity extends AppCompatActivity {
                     .createSignInIntentBuilder()
                     .build(), SIGN_IN_REQUEST_CODE);
         } else {
+            isAdmin = FirebaseAuth.getInstance().getCurrentUser().getEmail().equals("labaks93@gmail.com");
             invalidateOptionsMenu();
             displayItems(world);
         }
@@ -101,7 +103,6 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu, menu);
-        boolean isAdmin = FirebaseAuth.getInstance().getCurrentUser().getEmail().equals("labaks93@gmail.com");
         MenuItem add = menu.findItem(R.id.menu_add);
         add.setVisible(isAdmin);
         return true;

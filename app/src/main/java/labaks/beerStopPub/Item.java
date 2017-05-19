@@ -17,6 +17,26 @@ public class Item implements Serializable {
     public Item() {
     }
 
+    public Item(String name, float alcohol, String country, String description, float price, int volume) {
+        this.name = name;
+        this.alcohol = alcohol;
+        this.country = country;
+        this.description = description;
+        this.price = price;
+        this.volume = volume;
+    }
+
+    public Item(String name, float alcohol, String country, String description, float price, int volume, float price2, int volume2) {
+        this.name = name;
+        this.alcohol = alcohol;
+        this.country = country;
+        this.description = description;
+        this.price = price;
+        this.volume = volume;
+        this.price2 = price2;
+        this.volume2 = volume2;
+    }
+
     public String getName() {
         return name;
     }
