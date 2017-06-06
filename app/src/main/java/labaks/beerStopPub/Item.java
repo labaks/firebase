@@ -24,6 +24,7 @@ public class Item implements Serializable {
         this.description = description;
         this.price = price;
         this.volume = volume;
+        this.totalRate = calculateTotalRate();
     }
 
     public Item(String name, float alcohol, String country, String description, float price, int volume, float price2, int volume2) {
@@ -35,6 +36,7 @@ public class Item implements Serializable {
         this.volume = volume;
         this.price2 = price2;
         this.volume2 = volume2;
+        this.totalRate = calculateTotalRate();
     }
 
     public String getName() {
@@ -46,7 +48,8 @@ public class Item implements Serializable {
     }
 
     public float getTotalRate() {
-        return calculateTotalRate();
+        this.totalRate = calculateTotalRate();
+        return totalRate;
     }
 
     private float calculateTotalRate() {
@@ -59,6 +62,7 @@ public class Item implements Serializable {
 
     public void setTotalRate(float totalRate) {
         // need it
+        this.totalRate = calculateTotalRate();
     }
 
     public Map<String, Float> getUsersRate() {
@@ -67,7 +71,10 @@ public class Item implements Serializable {
 
     public void setUsersRate(Map<String, Float> usersRate) {
         this.usersRate = usersRate;
-        totalRate = calculateTotalRate();
+    }
+
+    public void setUsersRateItem(String s, Float f) {
+        this.usersRate.put(s, f);
     }
 
     public float getAlcohol() {

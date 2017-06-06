@@ -13,6 +13,7 @@ import android.widget.TextView;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
@@ -28,15 +29,18 @@ public class ItemProfile extends AppCompatActivity {
     ImageView iv_itemImage, iv_flag;
     private Typeface iconFont;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_item_profile);
         iconFont = FontManager.getTypeface(getApplicationContext(), FontManager.FONTAWESOME);
 
+
         final String userId = FirebaseAuth.getInstance().getCurrentUser().getUid();
         item = (Item) getIntent().getExtras().getSerializable("item");
         itemId = getIntent().getExtras().getString("itemId");
+        final DatabaseReference itemRef = FirebaseDatabase.getInstance().getReference().child("items").child(itemId);
 
         iv_itemImage = (ImageView) findViewById(R.id.iv_itemLogo);
 
@@ -80,8 +84,14 @@ public class ItemProfile extends AppCompatActivity {
             tv_volume.setText(String.valueOf(item.getVolume()) + " ml");
             tv_price.setText(String.format("%.2f", item.getPrice()) + " lv");
         }
-        tv_totalRating.setText(String.format("%.1f", item.getTotalRate()));
-        tv_numberOfRaters.setText(Integer.toString(item.getUsersRate().size()));
+        float totalRate = item.getTotalRate();
+        itemRef.child("totalRate").setValue(totalRate);
+        tv_totalRating.setText(String.format("%.1f", totalRate));
+        if (itemRef.child("usersRate").child("temporaryrating") == null) {
+            tv_numberOfRaters.setText(Integer.toString(item.getUsersRate().size() - 1));
+        } else {
+            tv_numberOfRaters.setText(Integer.toString(item.getUsersRate().size()));
+        }
 
         iv_flag = (ImageView) findViewById(R.id.iv_flag);
         int flagId = getApplicationContext().getResources().getIdentifier(item.getCountry(), "drawable", getPackageName());
@@ -98,16 +108,19 @@ public class ItemProfile extends AppCompatActivity {
         rb_userRatingBar.setOnRatingBarChangeListener(new RatingBar.OnRatingBarChangeListener() {
             @Override
             public void onRatingChanged(RatingBar ratingBar, float v, boolean b) {
-                FirebaseDatabase.getInstance().getReference().child("items")
-                        .child(itemId)
+                itemRef
                         .child("usersRate")
                         .child(userId)
                         .setValue(v);
-                FirebaseDatabase.getInstance().getReference().child("items")
-                        .child(itemId)
+                if (itemRef.child("usersRate").child("temporaryrating") != null) {
+                    itemRef.child("usersRate").child("temporaryrating").removeValue();
+                }
+                item.setUsersRateItem(userId, v);
+                float newTotalRate = item.getTotalRate();
+                itemRef
                         .child("totalRate")
-                        .setValue(item.getTotalRate());
-                tv_totalRating.setText(String.format("%.1f", item.getTotalRate()));
+                        .setValue(newTotalRate);
+                tv_totalRating.setText(String.format("%.1f", newTotalRate));
             }
         });
 

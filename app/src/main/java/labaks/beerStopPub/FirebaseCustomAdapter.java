@@ -12,8 +12,12 @@ import android.widget.TextView;
 import com.firebase.ui.database.FirebaseListAdapter;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
+import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.squareup.picasso.Picasso;
@@ -22,6 +26,7 @@ abstract class FirebaseCustomAdapter extends FirebaseListAdapter<Item> {
 
     private final Typeface iconFont = FontManager.getTypeface(mActivity, FontManager.FONTAWESOME);
     private Context context;
+    private DatabaseReference root = FirebaseDatabase.getInstance().getReference().child("items");
 
     FirebaseCustomAdapter(Context context, Activity activity, Query ref) {
         super(activity, Item.class, R.layout.item, ref);
@@ -29,11 +34,11 @@ abstract class FirebaseCustomAdapter extends FirebaseListAdapter<Item> {
     }
 
     @Override
-    protected void populateView(View v, Item model, int position) {
-        TextView tv_name, tv_alcohol, tv_volume, tv_price, tv_totalRating, tv_numberOfRaters;
+    protected void populateView(View v, final Item model, int position) {
+        final TextView tv_name, tv_alcohol, tv_volume, tv_price, tv_totalRating, tv_numberOfRaters;
         final ImageView iv_itemImage, iv_flag;
         final String itemId = String.valueOf(this.getRef(position))
-                .replace(String.valueOf(FirebaseDatabase.getInstance().getReference().child("items")) + "/", "");
+                .replace(String.valueOf(root) + "/", "");
 
         setIconToTextView(v, R.id.tvAlcoholIcon);
         setIconToTextView(v, R.id.tvVolumeIcon);
@@ -77,8 +82,26 @@ abstract class FirebaseCustomAdapter extends FirebaseListAdapter<Item> {
             tv_volume.setText(String.valueOf(model.getVolume()) + " ml");
             tv_price.setText(String.format("%.2f", model.getPrice()) + " lv");
         }
-        tv_totalRating.setText(String.format("%.1f", model.getTotalRate()));
-        tv_numberOfRaters.setText(Integer.toString(model.getUsersRate().size()));
+        float totalRate = model.getTotalRate();
+        tv_totalRating.setText(String.format("%.1f", totalRate));
+        root.child(itemId).child("totalRate").setValue(totalRate);
+        root.child(itemId).child("usersRate").child("temporaryrating").addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                Object tempSTr = dataSnapshot.getValue();
+                if (tempSTr != null) {
+                    tv_numberOfRaters.setText(Integer.toString(model.getUsersRate().size() - 1));
+                } else {
+                    tv_numberOfRaters.setText(Integer.toString(model.getUsersRate().size()));
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+
         tv_totalRating.setText(String.format("%.1f", model.getTotalRate()));
 
         iv_flag = (ImageView) v.findViewById(R.id.iv_flag);
