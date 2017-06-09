@@ -65,6 +65,11 @@ abstract class FirebaseCustomAdapter extends FirebaseListAdapter<Item> {
                         .placeholder(R.drawable.mug)
                         .error(R.drawable.mug)
                         .into(iv_itemImage);
+                try {
+                    Thread.sleep(500);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
             }
         }).addOnFailureListener(new OnFailureListener() {
             @Override
